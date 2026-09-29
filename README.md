@@ -1,16 +1,71 @@
-# React + Vite
+# CoGoal — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Веб-клиент сервиса взаимной подотчётности **CoGoal**. Помогает пользователям выполнять поставленные цели через систему пактов, залогов и геймификации.
 
-Currently, two official plugins are available:
+Пользователь создаёт цель с дедлайном и залогом, заключает пакт с напарником, отчитывается о прогрессе с доказательствами — если дедлайн пропущен, залог уходит в благотворительный фонд, если цель выполнена — начисляются монеты на кастомизацию профиля.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Технологический стек
 
-## React Compiler
+- **Frontend:** React + Vite
+- **Backend:** Java, Spring Boot ([репозиторий бэкенда](https://github.com/CoGoal/Backend))
+- **База данных:** PostgreSQL
+- **Дизайн:** Figma
+- **Документация:** Markdown, Mermaid, Draw.io
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Требования
 
-## Expanding the Oxlint configuration
+- Node.js 18 или новее (LTS)
+- Git
+- Запущенный бэкенд (см. репозиторий бэкенда) — для полноценной работы приложения
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Проверить, что всё установлено:
+
+```
+node -v
+npm -v
+git --version
+```
+
+## Установка и запуск
+
+```
+git clone https://github.com/CoGoal/Frontend.git
+cd Frontend
+npm install
+npm run dev
+```
+
+Приложение откроется на [http://localhost:5173](http://localhost:5173).
+
+По умолчанию фронтенд ожидает бэкенд на `http://localhost:8080` (настраивается в `vite.config.js`, секция `proxy`). Без запущенного бэкенда приложение покажет, что он недоступен — это ожидаемое поведение.
+
+## Структура проекта
+
+```
+Frontend/
+├── src/
+│   ├── api/          # клиент для запросов к бэкенду
+│   ├── App.jsx        # корневой компонент
+│   └── main.jsx        # точка входа
+├── public/            # статические файлы
+├── vite.config.js      # конфигурация Vite (порт, прокси к бэкенду)
+└── package.json
+```
+
+## Полезные команды
+
+| Команда | Что делает |
+|---|---|
+| `npm run dev` | запуск в режиме разработки |
+| `npm run build` | сборка для продакшена |
+| `npm run preview` | предпросмотр собранной версии |
+
+## Связь с бэкендом
+
+Все запросы к API идут через `/api/v1/**`, авторизация — JWT в заголовке `Authorization: Bearer <token>`. Открытые эндпоинты (не требуют токена): `/v3/api-docs`, `/swagger-ui.html`.
+
+Подробное описание всех эндпоинтов и схем данных — в [документации API](#) *(ссылка на openapi-справочник или отдельный репозиторий с документацией)*.
+
+## Статус проекта
+
+В разработке — учебный проект.
