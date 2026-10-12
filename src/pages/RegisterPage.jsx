@@ -7,7 +7,7 @@ import { EMAIL_RE, USERNAME_RE } from '../utils/validators'
 import './LoginPage.css' // стили общие для входа и регистрации
 
 // Проверка на стороне фронта — те же правила, что в RegisterRequest из контракта
-function validate({ email, username, name, password }) {
+function validate({ email, username, name, password, confirmPassword }) {
   const errors = {}
   if (!EMAIL_RE.test(email.trim())) errors.email = 'Введите корректный email'
   if (!USERNAME_RE.test(username)) {
@@ -15,7 +15,9 @@ function validate({ email, username, name, password }) {
   }
   if (!name.trim()) errors.name = 'Введите имя'
   else if (name.trim().length > 100) errors.name = 'Не больше 100 символов'
-  if (password.length < 8) errors.password = 'Пароль должен быть не короче 8 символов'
+  if (password.length < 8) errors.password = 'Минимум 8 символов'
+  if (!confirmPassword.trim()) errors.confirmPassword = 'Подтвердите пароль'
+  else if (password !== confirmPassword) errors.confirmPassword = 'Пароли не совпадают'
   return errors
 }
 
@@ -58,70 +60,144 @@ export default function RegisterPage({ onGoToLogin }) {
 
   return (
     <main className="login-page">
-      <form className="login-card" onSubmit={handleSubmit} noValidate>
-        <h1 className="login-logo">CoGoal</h1>
-        <p className="login-tagline">Достигай целей вместе.</p>
+      {/* Логотип ВНЕ карточки */}
+      <div className="login-logo-wrapper">
+        <div className="login-logo-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="20" fill="#5B2A86"/>
+            <path d="M12 20C12 15.5817 15.5817 12 20 12V12C24.4183 12 28 15.5817 28 20" stroke="white" strokeWidth="3"/>
+            <circle cx="20" cy="20" r="4" fill="white"/>
+          </svg>
+        </div>
+        <span className="login-logo-text">CoGoal</span>
+      </div>
 
-        <h2 className="login-title">Регистрация</h2>
+      {/* Белая карточка */}
+      <div className="login-card">
+        <form onSubmit={handleSubmit} noValidate>
+          <h2 className="login-title">Регистрация</h2>
 
-        <AuthField
-          name="email"
-          type="email"
-          placeholder="email"
-          autoComplete="email"
-          value={values.email}
-          onChange={(v) => change('email', v)}
-          error={errors.email}
-        />
+          <div className="login-field">
+            <label htmlFor="name" className="login-label">Имя</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              className={`login-input ${errors.name ? 'login-input-error' : ''}`}
+              placeholder="Иван Иванов"
+              autoComplete="name"
+              value={values.name}
+              onChange={(e) => change('name', e.target.value)}
+            />
+            {errors.name && <span className="login-error-text">{errors.name}</span>}
+          </div>
 
-        <AuthField
-          name="username"
-          placeholder="username"
-          autoComplete="username"
-          value={values.username}
-          onChange={(v) => change('username', v)}
-          error={errors.username}
-        />
+          <div className="login-field">
+            <label htmlFor="username" className="login-label">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              className={`login-input ${errors.username ? 'login-input-error' : ''}`}
+              placeholder="@username"
+              autoComplete="username"
+              value={values.username}
+              onChange={(e) => change('username', e.target.value)}
+            />
+            {errors.username && <span className="login-error-text">{errors.username}</span>}
+          </div>
 
-        <AuthField
-          name="name"
-          placeholder="имя пользователя"
-          autoComplete="name"
-          value={values.name}
-          onChange={(v) => change('name', v)}
-          error={errors.name}
-        />
+          <div className="login-field">
+            <label htmlFor="email" className="login-label">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className={`login-input ${errors.email ? 'login-input-error' : ''}`}
+              placeholder="example@email.com"
+              autoComplete="email"
+              value={values.email}
+              onChange={(e) => change('email', e.target.value)}
+            />
+            {errors.email && <span className="login-error-text">{errors.email}</span>}
+          </div>
 
-        <AuthField
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-          placeholder="пароль"
-          autoComplete="new-password"
-          value={values.password}
-          onChange={(v) => change('password', v)}
-          error={errors.password}
-        >
+          <div className="login-field">
+            <label htmlFor="password" className="login-label">Пароль</label>
+            <div className="login-password-wrapper">
+              <input
+                id="password"
+                name="password"
+                type={showPassword.password ? 'text' : 'password'}
+                className={`login-input ${errors.password ? 'login-input-error' : ''}`}
+                placeholder="Минимум 8 символов"
+                autoComplete="new-password"
+                value={values.password}
+                onChange={(e) => change('password', e.target.value)}
+              />
+              <button
+                type="button"
+                className="login-eye-button"
+                onClick={() => setShowPassword(prev => ({ ...prev, password: !prev.password }))}
+                aria-label={showPassword.password ? 'Скрыть пароль' : 'Показать пароль'}
+              >
+                <EyeIcon crossed={showPassword.password} />
+              </button>
+            </div>
+            {errors.password && <span className="login-error-text">{errors.password}</span>}
+          </div>
+
+          <div className="login-field">
+            <label htmlFor="confirmPassword" className="login-label">Подтверждение пароля</label>
+            <div className="login-password-wrapper">
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type={showPassword.confirm ? 'text' : 'password'}
+                className={`login-input ${errors.confirmPassword ? 'login-input-error' : ''}`}
+                placeholder="Повторите пароль"
+                autoComplete="new-password"
+                value={values.confirmPassword}
+                onChange={(e) => change('confirmPassword', e.target.value)}
+              />
+              <button
+                type="button"
+                className="login-eye-button"
+                onClick={() => setShowPassword(prev => ({ ...prev, confirm: !prev.confirm }))}
+                aria-label={showPassword.confirm ? 'Скрыть пароль' : 'Показать пароль'}
+              >
+                <EyeIcon crossed={showPassword.confirm} />
+              </button>
+            </div>
+            {errors.confirmPassword && <span className="login-error-text">{errors.confirmPassword}</span>}
+          </div>
+
+          {errors.form && (
+            <div className="login-form-error" role="alert">
+              {errors.form}
+            </div>
+          )}
+
           <button
-            type="button"
-            className="login-eye"
-            onClick={() => setShowPassword((v) => !v)}
-            aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+            className="login-submit-button"
+            type="submit"
+            disabled={register.isPending}
           >
-            <EyeIcon crossed={showPassword} />
+            {register.isPending ? 'Создаём…' : 'Регистрация'}
           </button>
-        </AuthField>
 
-        {errors.form && <p className="login-error" role="alert">{errors.form}</p>}
-
-        <button className="login-submit" type="submit" disabled={register.isPending}>
-          {register.isPending ? 'Создаём…' : 'Создать аккаунт'}
-        </button>
-
-        <p className="login-register">
-          Уже есть аккаунт?{' '}
-          <a href="#login" onClick={(e) => { e.preventDefault(); onGoToLogin?.() }}>Войти</a>
-        </p>
-      </form>
+          <p className="login-register-text">
+            Уже есть аккаунт?{' '}
+            <a
+              href="#login"
+              className="login-register-link"
+              onClick={(e) => { e.preventDefault(); onGoToLogin?.() }}
+            >
+              Войти
+            </a>
+          </p>
+        </form>
+      </div>
     </main>
   )
 }
