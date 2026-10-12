@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  --purple-card: #4a2068;
+  --purple-field: #25093d;
+  --yellow: #ffd166;
+  --ink-on-yellow: #25093d;
+  --text: #ffffff;
+  --text-soft: rgba(255, 255, 255, 0.85);
+  --error: #ffb4b4;
+  --field-error: #ef4f5f;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+  background: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
+
+.login-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.login-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 32px 32px;
+  background: var(--purple-card);
+  border-radius: 24px;
+  color: var(--text);
+  text-align: center;
+}
+
+.login-logo {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.login-tagline {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.login-title {
+  margin: 32px 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.login-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background: var(--purple-field);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+}
+
+.login-input::placeholder {
+  color: var(--text-soft);
+}
+
+.login-input:focus-visible {
+  outline: none;
+  border-color: var(--yellow);
+}
+
+.login-field + .login-field {
+  margin-top: 14px;
+}
+
+.login-input--error {
+  border-color: var(--field-error);
+}
+
+.login-field-error {
+  margin: 6px 0 0 4px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--field-error);
+}
+
+.login-password {
+  position: relative;
+}
+
+.login-password .login-input {
+  padding-right: 48px;
+}
+
+.login-eye {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.login-eye:focus-visible {
+  outline: 2px solid var(--yellow);
+}
+
+.login-forgot {
+  display: block;
+  margin: 10px 0 14px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.login-forgot:hover,
+.login-register a:hover {
+  text-decoration: underline;
+}
+
+.login-error {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--error);
+}
+
+.login-submit {
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--yellow);
+  color: var(--ink-on-yellow);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-submit:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.login-submit:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 2px;
+}
+
+.login-submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.login-register {
+  margin: 20px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.login-register a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Форма регистрации: нет ссылки «Забыли пароль?», отступ задаём сами */
+.login-field + .login-submit {
+  margin-top: 24px;
+}
+
+.login-field + .login-error {
+  margin-top: 14px;
+}
+
+/* Узкие экраны (телефоны от 320px) */
+@media (max-width: 400px) {
+  .login-page {
+    padding: 16px 12px;
+  }
+
+  .login-card {
+    padding: 32px 20px 24px;
+    border-radius: 20px;
+  }
+
+  .login-logo {
+    font-size: 28px;
+  }
+
+  .login-title {
+    margin-top: 24px;
+  }
+}
+
+/* Пояснительный текст под заголовком (восстановление пароля) */
+.login-description {
+  margin: 0 0 16px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.login-inline-link {
+  color: var(--text);
+  font-weight: 700;
+}
