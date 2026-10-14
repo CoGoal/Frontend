@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useLogin } from '../api/hooks'
 import { parseServerError } from '../api/errors'
-import AuthField from '../components/AuthField'
 import EyeIcon from '../components/EyeIcon'
 import './LoginPage.css'
 
@@ -12,7 +11,7 @@ const ERROR_OPTIONS = {
   fallback: 'Не удалось войти',
 }
 
-export default function LoginPage({ onGoToRegister, onGoToForgot }) {
+export default function LoginPage({ onGoToRegister, onGoToForgot, notice }) {
   const [values, setValues] = useState({ login: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
@@ -32,15 +31,9 @@ export default function LoginPage({ onGoToRegister, onGoToForgot }) {
     setErrors(clientErrors)
     if (Object.keys(clientErrors).length > 0) return //Если есть ошибка, но функция заканчивается,то на сервер ничего не отправляется
 
-    // Если в строке есть «@» — это email, иначе username
-    const identifier = values.login.trim()
-    const credentials = identifier.includes('@')
-      ? { email: identifier }
-      : { username: identifier }
-
     // При успехе токены сохранит сам хук useLogin, а App сам покажет следующий экран
     login.mutate(
-      { ...credentials, password: values.password },
+      { login: values.login.trim(), password: values.password },
       { onError: (err) => setErrors(parseServerError(err, ERROR_OPTIONS)) },
     )
   }
@@ -62,6 +55,7 @@ export default function LoginPage({ onGoToRegister, onGoToForgot }) {
       <div className="login-card">
         <form onSubmit={handleSubmit} noValidate>
           <h2 className="login-title">Вход в аккаунт</h2>
+          {notice && <p className="login-description" role="status">{notice}</p>}
 
           <div className="login-field">
             <label htmlFor="login" className="login-label">

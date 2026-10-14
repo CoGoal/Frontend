@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { useRegister } from '../api/hooks'
 import { parseServerError } from '../api/errors'
-import AuthField from '../components/AuthField'
 import EyeIcon from '../components/EyeIcon'
-import { EMAIL_RE, USERNAME_RE } from '../utils/validators'
+import { EMAIL_RE, USERNAME_RE, passwordError } from '../utils/validators'
 import './LoginPage.css' // стили общие для входа и регистрации
 
 // Проверка на стороне фронта — те же правила, что в RegisterRequest из контракта
@@ -15,7 +14,7 @@ function validate({ email, username, name, password, confirmPassword }) {
   }
   if (!name.trim()) errors.name = 'Введите имя'
   else if (name.trim().length > 100) errors.name = 'Не больше 100 символов'
-  if (password.length < 8) errors.password = 'Минимум 8 символов'
+  if (passwordError(password)) errors.password = passwordError(password)
   if (!confirmPassword.trim()) errors.confirmPassword = 'Подтвердите пароль'
   else if (password !== confirmPassword) errors.confirmPassword = 'Пароли не совпадают'
   return errors
@@ -29,8 +28,8 @@ const ERROR_OPTIONS = {
 }
 
 export default function RegisterPage({ onGoToLogin }) {
-  const [values, setValues] = useState({ email: '', username: '', name: '', password: '' })
-  const [showPassword, setShowPassword] = useState(false)
+  const [values, setValues] = useState({ email: '', username: '', name: '', password: '', confirmPassword: '' })
+  const [showPassword, setShowPassword] = useState({ password: false, confirm: false })
   const [errors, setErrors] = useState({})
   const register = useRegister() // register.isPending — идёт запрос
 
