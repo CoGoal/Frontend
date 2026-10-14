@@ -3,58 +3,90 @@ import { useAuthStore } from '../store/authStore'
 import { api } from './client'
 
 export const profileKey = ['profile']
+export const accountKey = ['account']
+export const profilePending = (error) => error?.problem?.code === 'PROFILE_PENDING'
 
-//профиль текущего пользователя: GET /users/me
-export function useProfile() {
+export function useProfile(enabled = true) {
   const hasSession = useAuthStore((s) => Boolean(s.accessToken || s.refreshToken))
-
   return useQuery({
     queryKey: profileKey,
-    queryFn: () => api('/users/me'),
-    enabled: hasSession,
+    queryFn: ({ signal }) => api('/users/me', { signal }),
+    enabled: enabled && hasSession,
+    retry: false,
+    refetchInterval: (query) => profilePending(query.state.error) ? 2000 : false,
   })
 }
-
-//общая часть входа и регистрации: сохранить токены и положить профиль в кэш
+export function useAccount() {
+  return useQuery({ queryKey: accountKey, queryFn: ({ signal }) => api('/auth/me', { signal }) })
+}
 function useAuthMutation(path) {
-  const queryClient = useQueryClient()
-  const setTokens = useAuthStore((s) => s.setTokens)
-
+  const client = useQueryClient()
   return useMutation({
     mutationFn: (body) => api(path, { method: 'POST', body, auth: false }),
-    onSuccess: (data) => {
-      setTokens(data)
-      queryClient.setQueryData(profileKey, data.user)
+    onSuccess: async (data) => {
+      await client.cancelQueries()
+      client.removeQueries()
+      client.setQueryData(accountKey, data.user)
+      useAuthStore.getState().startSession(data)
     },
   })
 }
-
 export const useLogin = () => useAuthMutation('/auth/login')
 export const useRegister = () => useAuthMutation('/auth/register')
-
-// POST/auth/password/forgot — отправить письмо со ссылкой
 export function useForgotPassword() {
-  return useMutation({
-    mutationFn: (email) =>
-      api('/auth/password/forgot', { method: 'POST', body: { email }, auth: false }),
-  })
+  return useMutation({ mutationFn: (email) => api('/auth/password/forgot', {
+    method: 'POST', body: { email }, auth: false,
+  }) })
 }
-
-// POST/auth/password/reset — установить новый пароль по токену из письма
 export function useResetPassword() {
   return useMutation({
-    mutationFn: ({ token, newPassword }) =>
-      api('/auth/password/reset', { method: 'POST', body: { token, newPassword }, auth: false }),
+    mutationFn: (body) => api('/auth/password/reset', { method: 'POST', body, auth: false }),
+    onSuccess: () => useAuthStore.getState().clear('Пароль изменён. Войдите с новым паролем.'),
   })
 }
-
-// удаляем токены и очищаем весь кэш запросов
+export function useConfirmEmail() {
+  return useMutation({
+    mutationFn: (token) => api('/auth/email/confirm', { method: 'POST', body: { token }, auth: false }),
+    onSuccess: () => useAuthStore.getState().clear('Email подтверждён. Войдите снова.'),
+  })
+}
+export function useUpdateProfile() {
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: (body) => api('/users/me', { method: 'PATCH', body }),
+    onSuccess: (profile) => client.setQueryData(profileKey, profile),
+  })
+}
+export function useChangeUsername() {
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: (username) => api('/auth/me/username', { method: 'PATCH', body: { username } }),
+    onSuccess: (account) => {
+      client.setQueryData(accountKey, account)
+      client.invalidateQueries({ queryKey: profileKey })
+    },
+  })
+}
+export function useChangePassword() {
+  return useMutation({
+    mutationFn: (body) => api('/auth/change-password', { method: 'POST', body }),
+    onSuccess: () => useAuthStore.getState().clear('Пароль изменён. Войдите с новым паролем.'),
+  })
+}
+export function useEmailChange() {
+  return useMutation({ mutationFn: (body) => api('/users/me/email-change', { method: 'POST', body }) })
+}
 export function useLogout() {
-  const queryClient = useQueryClient()
-  const clear = useAuthStore((s) => s.clear)
-
-  return () => {
-    clear()
-    queryClient.clear()
-  }
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: (all = false) => api(all ? '/auth/logout-all' : '/auth/logout', {
+      method: 'POST',
+      body: all ? undefined : () => ({ refreshToken: useAuthStore.getState().refreshToken }),
+    }),
+    onSuccess: async () => {
+      useAuthStore.getState().clear()
+      await client.cancelQueries()
+      client.removeQueries()
+    },
+  })
 }

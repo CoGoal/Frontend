@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useResetPassword } from '../api/hooks'
 import { parseServerError } from '../api/errors'
 import EyeIcon from '../components/EyeIcon'
+import { passwordError } from '../utils/validators'
 import './LoginPage.css'
 
 const ERROR_OPTIONS = {
@@ -28,9 +29,7 @@ export default function ResetPasswordPage({ token, onGoToLogin, onGoToForgot }) 
     e.preventDefault()
 
     const newErrors = {}
-    if (password.length < 8) {
-      newErrors.password = 'Минимум 8 символов'
-    }
+    if (passwordError(password)) newErrors.password = passwordError(password)
     if (!confirmPassword.trim()) newErrors.confirmPassword = 'Подтвердите пароль'
     else if (password !== confirmPassword) {
       newErrors.confirmPassword = 'Пароли не совпадают'

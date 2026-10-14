@@ -74,8 +74,8 @@ export default function ForgotPasswordPage({ onGoToLogin }) {
 
               <div className="success-description">
                 <p>
-                  Мы отправили письмо со ссылкой на {email.trim()}. 
-                  Ссылка активна в течение 30 минут
+                  Если аккаунт {email.trim()} существует, письмо придёт на этот адрес.
+                  Ссылка активна в течение 30 минут.
                 </p>
               </div>
 
