@@ -1,0 +1,17 @@
+:root {
+    --color-primary: #5B2A86;
+    --color-primary2: #00D9C6;
+    --color-hover: #4a2270;            /* hover */
+    --color-pressed: #1a0a37;          /* pressed */
+    --color-soft: #F0E7F7;
+    --color-mint: #dcf2e8;             /* mint */
+    --color-text: #24212B;
+    --color-text-secondary: #68636F;
+    --color-border: #E2DDE7;
+    --color-surface: #ffffff;
+    --color-page: #F7F5FA;
+    --color-danger: #b42318;           /* danger */
+    --color-accent: #00D9C6;
+    --color-accent-hover: #00b3a4;     /* hover2 */
+    --color-accent-pressed: #008e80;   /* pressed2 */
+}

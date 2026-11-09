@@ -1,0 +1,19 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--color-page);
+    color: var(--color-text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    padding: 0 32px 32px;
+}

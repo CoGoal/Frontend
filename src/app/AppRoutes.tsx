@@ -29,6 +29,7 @@ export default function AppRoutes() {
         />
         <Route path={ROUTES.register} element={<RegisterPage onGoToLogin={goToLogin} />} />
         <Route path={ROUTES.forgot} element={<ForgotPasswordPage onGoToLogin={goToLogin} />} />
+
         <Route
             path="*"
             element={

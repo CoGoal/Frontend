@@ -1,0 +1,213 @@
+.title {
+    margin: 8px 0 24px;
+    font-family: inherit;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+    letter-spacing: normal;
+    color: var(--color-text);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.card {
+    background: var (--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+/* Левая карточка */
+.aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 24px;
+    text-align: center;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatarEmpty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var (--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+.name {
+    margin: 12px 0 0;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+}
+
+.meta {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+    overflow-wrap: anywhere;
+}
+
+.asideActions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.backLink {
+    padding: 8px 16px;
+    border: 1px solid var(--color-primary);
+    border-radius: 8px;
+    background: var(--color-primary);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-surface);
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.backLink:hover {
+    background: var(--color-hover);
+}
+
+.outlineButton {
+    padding: 8px 16px;
+    border: 1px solid var(--color-primary);
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.outlineButton:hover:not(:disabled) {
+    background: var(--color-soft);
+}
+
+.outlineButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.backLink:focus-visible,
+.outlineButton:focus-visible,
+.textButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.textButton {
+    margin-top: 12px;
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.textButton:hover:not(:disabled) {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.textButton:disabled {
+    cursor: not-allowed;
+}
+
+/* Правая карточка */
+.details {
+    padding: 8px 24px 24px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rowLabel {
+    padding-top: 13px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--color-text);
+}
+
+.rowValue {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.hint {
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.success {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #166534;
+}
+
+/* Два класса, чтобы перебить общую ширину кнопки со страниц входа */
+.footer .submit {
+    width: auto;
+    align-self: flex-start;
+    margin-top: 0;
+    padding: 12px 28px;
+}
+
+@media (max-width: 800px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .rowLabel {
+        padding-top: 0;
+    }
+}

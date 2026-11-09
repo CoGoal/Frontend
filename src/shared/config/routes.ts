@@ -5,4 +5,5 @@ export const ROUTES = {
     reset: '/reset-password',
     confirmEmail: '/email-confirm',
     profile: '/profile',
+    profileEdit: '/profile/edit',
 } as const

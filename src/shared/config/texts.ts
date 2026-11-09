@@ -63,56 +63,6 @@ export const CONFIRM_EMAIL_TEXTS = {
     submitting: 'Подтверждаем…',
     backToLogin: 'Вернуться ко входу',
 }
-
-export const PROFILE_PAGE_TEXTS = {
-    pageTitle: 'Мой профиль',
-    logout: 'Выйти',
-    logoutAll: 'Выйти на всех устройствах',
-    summaryLabel: 'Данные профиля',
-    avatarAlt: 'Аватар',
-    coins: (count: number) => `${count} монет`,
-
-  // Имя и аватар
-    profileFormLabel: 'Редактирование профиля',
-    profileFormTitle: 'Имя и аватар',
-    nameLabel: 'Имя',
-    nameInvalid: `Введите имя от 1 до ${LIMITS.nameMax} символов`,
-    avatarLabel: 'Ссылка на аватар',
-    avatarInvalid: 'Укажите ссылку, начинающуюся с http:// или https://',
-    avatarTooLong: 'Ссылка слишком длинная',
-    avatarHint: 'Чтобы убрать аватар, оставьте ссылку пустой.',
-    profileSubmit: 'Сохранить профиль',
-        profileSaved: 'Профиль сохранён',
-
-  // Логин
-    usernameFormLabel: 'Смена логина',
-    usernameFormTitle: 'Логин для входа',
-    usernameLabel: 'Новый username',
-    usernameInvalid: `От ${LIMITS.usernameMin} до ${LIMITS.usernameMax} символов: латинские буквы, цифры и _`,
-    usernameSubmit: 'Изменить логин',
-    usernameSaved: 'Логин изменён. Используйте его при следующем входе.',
-
-  // Пароль
-    passwordFormLabel: 'Смена пароля',
-    passwordFormTitle: 'Смена пароля',
-    currentPassword: 'Текущий пароль',
-    currentPasswordRequired: 'Введите текущий пароль',
-    newPassword: 'Новый пароль',
-    confirmPassword: 'Повторите новый пароль',
-    passwordsMismatch: 'Пароли не совпадают',
-    passwordHint: 'После смены пароля нужно будет войти снова.',
-    passwordSubmit: 'Изменить пароль',
-
-  // Email
-    emailFormLabel: 'Смена email',
-    emailFormTitle: 'Смена email',
-    newEmailLabel: 'Новый email',
-    emailInvalid: 'Введите корректный email',
-    emailPasswordLabel: 'Пароль для смены email',
-    emailSubmit: 'Отправить подтверждение',
-    emailSent: 'Письмо отправлено на новый адрес. Подтвердите email по ссылке из письма.',
-}
-
 export const REGISTER_TEXTS = {
     title: 'Регистрация',
 
@@ -198,3 +148,84 @@ export const SERVER_ERROR_TEXTS = {
 }
 
 export const APP_NAME = 'CoGoal'
+
+export const SIDEBAR_TEXTS = {
+  navLabel: 'Основное меню',
+  home: 'Главная',
+  goals: 'Цели',
+  pacts: 'Пакты',
+  notifications: 'Уведомления',
+  profile: 'Профиль',
+  settings: 'Настройки',
+}
+
+export const HEADER_TEXTS = {
+  profile: 'Профиль',
+  notifications: 'Уведомления',
+  coins: 'Баланс монет',
+}
+
+export const PROFILE_VIEW_TEXTS = {
+  pageTitle: 'Мой профиль',
+  avatarAlt: 'Аватар',
+  statsLabel: 'Статистика',
+  completedGoals: 'Выполнено целей',
+  activeGoals: 'Активные цели',
+  completedPacts: 'Завершено пактов',
+  coins: 'Баланс монет',
+  edit: 'Редактировать',
+}
+
+export const GOALS_TEXTS = {
+  title: 'Мои цели и пакты',
+  tabsLabel: 'Фильтр целей',
+  tabAll: 'Все',
+  tabInPact: 'В пакте',
+  tabCompleted: 'Завершены',
+  emptyAll: 'Пока целей нет',
+  emptyInPact: 'Пока нет целей в пакте',
+  emptyCompleted: 'Пока нет завершённых целей',
+}
+
+export const SIDE_CARDS_TEXTS = {
+  historyTitle: 'История монет',
+  historyDescription: 'Начисления и списания',
+  historyLink: 'Все операции',
+  achievementsTitle: 'Достижения',
+  achievementsEmpty: 'Пока нет достижений',
+  achievementsLink: 'Все достижения',
+  lookTitle: 'Мой образ',
+  lookDescription: 'Аватар, рамка и значки',
+  lookLink: 'Настроить профиль',
+}
+
+export const EDIT_PROFILE_TEXTS = {
+  pageTitle: 'Редактирование профиля',
+  avatarAlt: 'Аватар',
+  backToProfile: 'Назад в профиль',
+  logout: 'Выйти',
+  logoutAll: 'Выйти на всех устройствах',
+
+  nameLabel: 'Имя',
+  nameInvalid: `Введите имя от 1 до ${LIMITS.nameMax} символов`,
+  usernameLabel: 'Username',
+  usernameInvalid: `От ${LIMITS.usernameMin} до ${LIMITS.usernameMax} символов: латинские буквы, цифры и _`,
+  emailLabel: 'Email',
+  emailInvalid: 'Введите корректный email',
+  emailHint: 'После сохранения на новый адрес придёт письмо со ссылкой для подтверждения',
+
+  currentPasswordLabel: 'Текущий пароль',
+  currentPasswordHint: 'Нужен, только если вы меняете email или пароль',
+  currentPasswordRequired: 'Введите текущий пароль',
+  newPasswordLabel: 'Новый пароль',
+  newPasswordPlaceholder: `Минимум ${LIMITS.passwordMin} символов`,
+  confirmPasswordLabel: 'Повторите новый пароль',
+  passwordsMismatch: 'Пароли не совпадают',
+  passwordHint: 'После смены пароля нужно будет войти снова',
+
+  submit: 'Сохранить',
+  submitting: 'Сохраняем…',
+  nothingChanged: 'Вы ничего не изменили',
+  profileSaved: 'Изменения сохранены',
+  emailSent: 'Письмо отправлено на новый адрес. Подтвердите email по ссылке из письма.',
+}
