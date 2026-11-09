@@ -1,0 +1,19 @@
+.wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.image {
+    display: block;
+    height: 48px;
+    width: auto;
+}
+
+.text {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+    color: #111827;
+}

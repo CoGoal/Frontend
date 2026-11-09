@@ -1,0 +1,85 @@
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.icon {
+    margin-bottom: 4px;
+    color: var(--color-primary);
+}
+
+.title {
+    margin: 0;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: var(--color-text);
+}
+
+.text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text);
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.listIcon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+}
+
+.link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.link:hover {
+    color: var(--color-primary);
+}
+
+.link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

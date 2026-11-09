@@ -1,0 +1,130 @@
+.title {
+    margin: 8px 0 24px;
+    font-family: inherit;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+    letter-spacing: normal;
+    color: var(--color-text);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.editButton {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border: 1px solid var(--color-primary);
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.editButton:hover {
+    background: var(--color-soft);
+}
+
+.editButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatarEmpty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+.name {
+    margin: 0;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: var(--color-text);
+}
+
+.username {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.value {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32px;
+    color: var(--color-text);
+}
+
+.label {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-secondary);
+}
+
+/* Слева цели, справа узкий столбец с тремя карточками */
+.columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 24px;
+    align-items: start;
+    margin-top: 24px;
+}
+
+/* На узком окне всё складывается в один столбец */
+@media (max-width: 720px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .columns {
+        grid-template-columns: 1fr;
+    }
+}
